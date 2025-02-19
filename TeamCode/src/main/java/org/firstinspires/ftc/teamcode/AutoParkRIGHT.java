@@ -24,7 +24,7 @@ public class AutoParkRIGHT extends LinearOpMode {
             // autonomous park
 
             // preset drop off position
-            roboController.shoulder.setPosition(0.32);
+            //roboController.shoulder.setPosition(0.32);
 
             // move right
             roboController.moveOnXAxis(40, 0.8);

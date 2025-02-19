@@ -16,6 +16,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 @Autonomous(name = "RR Backup 2 Specimen (MIDDLE)")
 public class RR_Backup extends LinearOpMode {
     @Override
+    // outdated
     public void runOpMode() throws InterruptedException {
         MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
         Servo specimenServo = hardwareMap.servo.get("specimenArm");

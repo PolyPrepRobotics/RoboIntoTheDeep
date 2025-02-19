@@ -23,6 +23,7 @@ public class AutoScoreSpecimen extends LinearOpMode {
 
             // autonomous score specimen
 
+            /*
             // preset drop off position
             roboController.shoulder.setPosition(0.32);
 
@@ -53,6 +54,8 @@ public class AutoScoreSpecimen extends LinearOpMode {
 
             // move left and park
             roboController.moveOnXAxis(-27, 0.6);
+
+             */
         }
     }
 }
