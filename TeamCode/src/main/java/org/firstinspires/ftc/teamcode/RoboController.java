@@ -32,7 +32,6 @@ public class RoboController {
     public Servo intakeGripper;
     public DcMotor leftVerticalSlide;
     public DcMotor rightVerticalSlide;
-
     // ****
 
     public RoboController(LinearOpMode opMode){
@@ -57,7 +56,6 @@ public class RoboController {
         intakeGripper = hardwareMap.get(Servo.class, "IGS");
         leftVerticalSlide = hardwareMap.get(DcMotor.class, "LVLS");
         rightVerticalSlide = hardwareMap.get(DcMotor.class, "RVLS");
-
 
         // presetting
         FRW.setDirection(DcMotorSimple.Direction.REVERSE);
