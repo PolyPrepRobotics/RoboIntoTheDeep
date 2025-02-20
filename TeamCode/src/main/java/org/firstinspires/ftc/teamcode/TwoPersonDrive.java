@@ -103,7 +103,7 @@ public class TwoPersonDrive extends LinearOpMode {
 
         if(armpad.dpad_down){
             if(roboController.intakeFlip.getPosition() < 0.5){
-                roboController.intakeFlip.setPosition(1);
+                roboController.intakeFlip.setPosition(0.7);
             } else {
                 roboController.intakeFlip.setPosition(0);
             }
