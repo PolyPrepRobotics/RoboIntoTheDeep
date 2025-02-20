@@ -3,11 +3,18 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.Servo;
+
+import java.util.Scanner;
 
 @TeleOp
 public class EvanTwoPersonDrive extends LinearOpMode {
     private RoboController roboController;
     public static double servoPos = 0.5;
+    public static Delay outtakeFlipDelay;
+    public static Delay outtakeRotateDelay;
+    public static Delay outtakeTwistDelay;
+    public static Delay outtakeGripperDelay;
 
     @Override
     public void runOpMode() {
@@ -107,6 +114,65 @@ public class EvanTwoPersonDrive extends LinearOpMode {
             } else {
                 roboController.intakeFlip.setPosition(0);
             }
+        }
+    }
+
+
+    public void moveOuttake(Gamepad outtakePad) {
+            /*
+            TODO: PLEASE CHANGE THE GAMEPAD BUTTON CONTROLS! HAS NOT BEEN FINISHED YET!!!
+            TODO: ALSO CHANGE VALUES! THESE ARE SUBSITUTE VALUES
+            */
+        if (outtakePad.a && outtakeFlipDelay.delay()) {
+
+
+            // outtake flip: flips the thing on top of the linear slide
+            if (outtakeFlipDelay.open) {
+                roboController.outtakeFlip.setPosition(0);
+            } else {
+                roboController.outtakeFlip.setPosition(1);
+            }
+            outtakeFlipDelay.open = !outtakeFlipDelay.open;
+
+
+        } else if (outtakePad.a && outtakeRotateDelay.delay()) {
+
+
+            // outtake rotate: flips the claw itself on the thing on top of the linear slide
+            // not to be confused with outtake flip
+
+            if (outtakeRotateDelay.open) {
+                roboController.outtakeRotate.setPosition(0);
+            } else {
+                roboController.outtakeRotate.setPosition(1);
+            }
+            outtakeRotateDelay.open = !outtakeRotateDelay.open;
+
+
+        } else if (outtakePad.a && outtakeTwistDelay.delay()) {
+
+
+            // outtake twist: rotates the little platform on the claw
+            if (outtakeTwistDelay.open) {
+                roboController.outtakeTwist.setPosition(0);
+            } else {
+                roboController.outtakeTwist.setPosition(1);
+            }
+            outtakeTwistDelay.open = !outtakeTwistDelay.open;
+
+
+        } else if (outtakePad.a && outtakeGripperDelay.delay()) {
+
+
+            // outtake gripper: the gripping things on the claw
+            if (outtakeGripperDelay.open) {
+                roboController.outtakeGripper.setPosition(0);
+            } else {
+                roboController.outtakeGripper.setPosition(1);
+            }
+
+
+            outtakeGripperDelay.open = !outtakeGripperDelay.open;
         }
     }
 }
