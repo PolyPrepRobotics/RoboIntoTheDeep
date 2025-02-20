@@ -29,6 +29,8 @@ public class TwoPersonDrive extends LinearOpMode {
             telemetry.addData("Status", "Running");
             telemetry.addData("RIP", roboController.rightIntakePusher.getPosition());
             telemetry.addData("LIP", roboController.leftIntakePusher.getPosition());
+            telemetry.addData("IFS", roboController.intakeFlip.getPosition());
+
             telemetry.update();
         }
     }
@@ -80,22 +82,31 @@ public class TwoPersonDrive extends LinearOpMode {
 
         // triggers control extension of intake arm
         if (armpad.right_trigger > 0.25) {
-            roboController.rightIntakePusher.setPosition(roboController.rightIntakePusher.getPosition() + 0.01);
-            roboController.leftIntakePusher.setPosition(roboController.leftIntakePusher.getPosition() + 0.01);
+            roboController.rightIntakePusher.setPosition(roboController.rightIntakePusher.getPosition() + 0.001);
+            roboController.leftIntakePusher.setPosition(roboController.leftIntakePusher.getPosition() - 0.001);
         } else if (armpad.left_trigger > 0.25) {
-            roboController.rightIntakePusher.setPosition(roboController.rightIntakePusher.getPosition() - 0.01);
-            roboController.leftIntakePusher.setPosition(roboController.leftIntakePusher.getPosition() - 0.01);
+            roboController.rightIntakePusher.setPosition(roboController.rightIntakePusher.getPosition() - 0.001);
+            roboController.leftIntakePusher.setPosition(roboController.leftIntakePusher.getPosition() + 0.001);
         }
 
-        /*
         // bumpers control extension of outtake arm
         if (armpad.left_bumper) {
-            roboController.VLS.setPower(-1);
+            roboController.leftVerticalSlide.setPower(-1);
+            roboController.rightVerticalSlide.setPower(-1);
         } else if (armpad.right_bumper) {
-            roboController.VLS.setPower(1);
+            roboController.leftVerticalSlide.setPower(1);
+            roboController.rightVerticalSlide.setPower(1);
         } else {
-            roboController.VLS.setPower(0);
+            roboController.leftVerticalSlide.setPower(0);
+            roboController.rightVerticalSlide.setPower(0);
         }
-        */
+
+        if(armpad.dpad_down){
+            if(roboController.intakeFlip.getPosition() < 0.5){
+                roboController.intakeFlip.setPosition(1);
+            } else {
+                roboController.intakeFlip.setPosition(0);
+            }
+        }
     }
 }
