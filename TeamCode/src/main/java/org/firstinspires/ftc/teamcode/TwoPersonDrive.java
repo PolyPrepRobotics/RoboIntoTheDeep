@@ -30,6 +30,8 @@ public class TwoPersonDrive extends LinearOpMode {
             telemetry.addData("RIP", roboController.rightIntakePusher.getPosition());
             telemetry.addData("LIP", roboController.leftIntakePusher.getPosition());
             telemetry.addData("IFS", roboController.intakeFlip.getPosition());
+            telemetry.addData("IRS", roboController.intakeRotate.getPosition());
+            telemetry.addData("IGS", roboController.intakeGripper.getPosition());
 
             telemetry.update();
         }
@@ -103,9 +105,37 @@ public class TwoPersonDrive extends LinearOpMode {
 
         if(armpad.dpad_down){
             if(roboController.intakeFlip.getPosition() < 0.5){
-                roboController.intakeFlip.setPosition(0.7);
+                roboController.intakeFlip.setPosition(0.85);
             } else {
                 roboController.intakeFlip.setPosition(0);
+            }
+        }
+
+        if(armpad.dpad_down){
+            if(roboController.intakeFlip.getPosition() < 0.5){
+                // macro position is correct
+                // parallel to floor
+                roboController.intakeFlip.setPosition(0.8);
+            } else {
+                // need to change this to the macro position
+                // higher
+                roboController.intakeFlip.setPosition(0);
+            }
+        }
+
+        if(armpad.dpad_up){
+            if(roboController.intakeRotate.getPosition() < 0.5){
+                // macro position is correct
+                // lower
+                roboController.intakeRotate.setPosition(1);
+
+                roboController.intakeGripper.setPosition(0);
+            } else {
+                // macro position is (somewhat) correct
+                // higher
+                roboController.intakeRotate.setPosition(0);
+
+                roboController.intakeGripper.setPosition(1);
             }
         }
     }
