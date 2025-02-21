@@ -33,7 +33,8 @@ public class RoboController {
     public DcMotor leftVerticalSlide;
     public DcMotor rightVerticalSlide;
 
-    public Servo outtakeFlip;
+    public Servo outtakeFlipR;
+    public Servo outtakeFlipL;
     public Servo outtakeRotate;
     public Servo outtakeTwist;
     public Servo outtakeGripper;
@@ -63,7 +64,8 @@ public class RoboController {
         leftVerticalSlide = hardwareMap.get(DcMotor.class, "LVLS");
         rightVerticalSlide = hardwareMap.get(DcMotor.class, "RVLS");
 
-        outtakeFlip = hardwareMap.get(Servo.class, "OFS");
+        outtakeFlipR = hardwareMap.get(Servo.class, "ROFS");
+        outtakeFlipL = hardwareMap.get(Servo.class, "LOFS");
         outtakeRotate = hardwareMap.get(Servo.class, "ORS");
         outtakeTwist = hardwareMap.get(Servo.class, "OTS");
         outtakeGripper = hardwareMap.get(Servo.class, "OGS");

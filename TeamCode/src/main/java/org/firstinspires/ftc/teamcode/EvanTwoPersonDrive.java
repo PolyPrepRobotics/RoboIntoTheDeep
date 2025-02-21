@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import static com.qualcomm.robotcore.hardware.Servo.Direction.REVERSE;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -11,11 +13,11 @@ import java.util.Scanner;
 public class EvanTwoPersonDrive extends LinearOpMode {
     private RoboController roboController;
     public static double servoPos = 0.5;
-    public static Delay outtakeFlipDelay;
-    public static Delay outtakeRotateDelay;
-    public static Delay outtakeTwistDelay;
-    public static Delay outtakeGripperDelay;
-
+    public static Delay outtakeFlipDelay = new Delay();
+    public static Delay outtakeRotateDelay = new Delay();
+    public static Delay outtakeTwistDelay = new Delay();
+    public static Delay outtakeGripperDelay = new Delay();
+    private static int outtakeFlipPos = 0;
     @Override
     public void runOpMode() {
         roboController = new RoboController(this);
@@ -32,7 +34,7 @@ public class EvanTwoPersonDrive extends LinearOpMode {
             // to be used and print data values
             moveWheels(gamepad1);
             moveArm(gamepad2);
-
+            moveOuttake(gamepad1);
             telemetry.addData("Status", "Running");
             telemetry.addData("RIP", roboController.rightIntakePusher.getPosition());
             telemetry.addData("LIP", roboController.leftIntakePusher.getPosition());
@@ -123,19 +125,30 @@ public class EvanTwoPersonDrive extends LinearOpMode {
             TODO: PLEASE CHANGE THE GAMEPAD BUTTON CONTROLS! HAS NOT BEEN FINISHED YET!!!
             TODO: ALSO CHANGE VALUES! THESE ARE SUBSITUTE VALUES
             */
+
         if (outtakePad.a && outtakeFlipDelay.delay()) {
 
-
             // outtake flip: flips the thing on top of the linear slide
-            if (outtakeFlipDelay.open) {
-                roboController.outtakeFlip.setPosition(0);
+            roboController.outtakeFlipL.setDirection(REVERSE);
+            if (outtakeFlipPos == 2) {
+                outtakeFlipPos = 0;
             } else {
-                roboController.outtakeFlip.setPosition(1);
+                outtakeFlipPos++;
             }
-            outtakeFlipDelay.open = !outtakeFlipDelay.open;
 
+            if (outtakeFlipPos == 0) {
+                roboController.outtakeFlipR.setPosition(0);
+                roboController.outtakeFlipL.setPosition(0);
+            } else if (outtakeFlipPos == 1) {
+                roboController.outtakeFlipR.setPosition(.35);
+                roboController.outtakeFlipL.setPosition(.35);
+            } else if (outtakeFlipPos == 2) {
+                roboController.outtakeFlipR.setPosition(1);
+                roboController.outtakeFlipL.setPosition(1);
+            }
+        }
 
-        } else if (outtakePad.a && outtakeRotateDelay.delay()) {
+        else if (outtakePad.b && outtakeRotateDelay.delay()) {
 
 
             // outtake rotate: flips the claw itself on the thing on top of the linear slide
@@ -149,7 +162,9 @@ public class EvanTwoPersonDrive extends LinearOpMode {
             outtakeRotateDelay.open = !outtakeRotateDelay.open;
 
 
-        } else if (outtakePad.a && outtakeTwistDelay.delay()) {
+        }
+
+        /*else if (outtakePad.a && outtakeTwistDelay.delay()) {
 
 
             // outtake twist: rotates the little platform on the claw
@@ -173,6 +188,6 @@ public class EvanTwoPersonDrive extends LinearOpMode {
 
 
             outtakeGripperDelay.open = !outtakeGripperDelay.open;
-        }
+        }*/
     }
 }
