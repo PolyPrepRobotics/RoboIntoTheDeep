@@ -9,6 +9,8 @@ public class TwoPersonDrive extends LinearOpMode {
     private RoboController roboController;
     public static double servoPos = 0.5;
 
+    private boolean buttonBeingPressed = false;
+
     @Override
     public void runOpMode() {
         roboController = new RoboController(this);
@@ -72,7 +74,6 @@ public class TwoPersonDrive extends LinearOpMode {
         telemetry.addData("Strafe Power", strafePower);
         telemetry.addData("Turn Power", turnPower);
     }
-
     public void moveArm(Gamepad armpad){
         // ** arm movement **
 
@@ -138,5 +139,7 @@ public class TwoPersonDrive extends LinearOpMode {
                 roboController.intakeGripper.setPosition(1);
             }
         }
+
+
     }
 }
