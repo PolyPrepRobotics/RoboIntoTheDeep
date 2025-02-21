@@ -9,7 +9,12 @@ public class TwoPersonDrive extends LinearOpMode {
     private RoboController roboController;
     public static double servoPos = 0.5;
 
-    private boolean buttonBeingPressed = false;
+    private boolean buttonPressedDpadDown = false;
+    private boolean buttonPressedDpadUp = false;
+    private boolean buttonPressedCircle = false;
+    private boolean buttonPressedSquare = false;
+    private boolean buttonPressedA = false;
+    private boolean pickupPos = false;
 
     @Override
     public void runOpMode() {
@@ -104,27 +109,77 @@ public class TwoPersonDrive extends LinearOpMode {
             roboController.rightVerticalSlide.setPower(0);
         }
 
-        if(armpad.dpad_down){
-            if(roboController.intakeFlip.getPosition() < 0.5){
-                roboController.intakeFlip.setPosition(0.85);
-            } else {
-                roboController.intakeFlip.setPosition(0);
-            }
-        }
 
-        if(armpad.dpad_down){
+        // circle toggles intake arm positions
+        if(armpad.circle && !buttonPressedCircle){
             if(roboController.intakeFlip.getPosition() < 0.5){
                 // macro position is correct
-                // parallel to floor
+                // semi-parallel to floor
                 roboController.intakeFlip.setPosition(0.8);
+
+                // claw is semi-parallel too
+                roboController.intakeRotate.setPosition(0.5);
+
+                pickupPos = true;
             } else {
-                // need to change this to the macro position
+                // find actual macro positions for outtake arm transfer
                 // higher
-                roboController.intakeFlip.setPosition(0);
+                roboController.intakeFlip.setPosition(0.3);
+
+                // higher
+                roboController.intakeRotate.setPosition(0.2);
+
+                pickupPos = false;
             }
         }
 
-        if(armpad.dpad_up){
+        buttonPressedCircle = armpad.circle;
+
+
+        // x/a controls opening and closing intake claw
+        if(armpad.a && !buttonPressedA){
+            // initially closed
+            if (roboController.intakeGripper.getPosition() <= 0.5) {
+                // opening
+                roboController.intakeGripper.setPosition(1);
+            } else {
+                // closing
+                roboController.intakeGripper.setPosition(0);
+            }
+        }
+
+        buttonPressedA = armpad.a;
+
+        // hold dpad down to lower claw and pick up sample
+        if(pickupPos){
+            if(armpad.dpad_down && !buttonPressedDpadDown){
+                // semi-parallel to floor
+                roboController.intakeFlip.setPosition(0.83);
+
+                // lower claw
+                roboController.intakeRotate.setPosition(1);
+            } else {
+                // semi-parallel to floor
+                roboController.intakeFlip.setPosition(0.8);
+
+                // claw is semi-parallel too
+                roboController.intakeRotate.setPosition(0.5);
+            }
+        }
+
+        // square controls adjustment of wrist position
+        if (armpad.square && !buttonPressedSquare) {
+            if (roboController.intakeTwist.getPosition() < 0.25) {
+                roboController.intakeTwist.setPosition(0.5);
+            } else {
+                roboController.intakeTwist.setPosition(0);
+            }
+        }
+
+        buttonPressedSquare = armpad.square;
+
+        /*
+        if(armpad.dpad_up && !buttonPressedDpadUp){
             if(roboController.intakeRotate.getPosition() < 0.5){
                 // macro position is correct
                 // lower
@@ -140,6 +195,8 @@ public class TwoPersonDrive extends LinearOpMode {
             }
         }
 
+        buttonPressedDpadUp = armpad.dpad_up;
 
+         */
     }
 }
