@@ -24,6 +24,7 @@ public class RoboController {
     public IMU imu;
 
     // ** new variables **
+    // intake
     public Servo rightIntakePusher;
     public Servo leftIntakePusher;
     public Servo intakeFlip;
@@ -32,6 +33,14 @@ public class RoboController {
     public Servo intakeGripper;
     public DcMotor leftVerticalSlide;
     public DcMotor rightVerticalSlide;
+
+    // outtake
+    public Servo leftOuttakeFlip;
+    public Servo rightOuttakeFlip;
+    public Servo outtakeRotate;
+    public Servo outtakeTwist;
+    public Servo outtakeGripper;
+
     // ****
 
     public RoboController(LinearOpMode opMode){
@@ -56,6 +65,12 @@ public class RoboController {
         intakeGripper = hardwareMap.get(Servo.class, "IGS");
         leftVerticalSlide = hardwareMap.get(DcMotor.class, "LVLS");
         rightVerticalSlide = hardwareMap.get(DcMotor.class, "RVLS");
+
+        leftOuttakeFlip = hardwareMap.get(Servo.class, "LOFS");
+        rightOuttakeFlip = hardwareMap.get(Servo.class, "ROFS");
+        outtakeRotate = hardwareMap.get(Servo.class, "ORS");
+        outtakeTwist = hardwareMap.get(Servo.class, "OTS");
+        outtakeGripper = hardwareMap.get(Servo.class, "OGS");
 
         // presetting
         FRW.setDirection(DcMotorSimple.Direction.REVERSE);
