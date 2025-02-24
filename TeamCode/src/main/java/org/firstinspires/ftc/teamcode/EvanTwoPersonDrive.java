@@ -17,7 +17,7 @@ public class EvanTwoPersonDrive extends LinearOpMode {
     public static Delay outtakeRotateDelay = new Delay();
     public static Delay outtakeTwistDelay = new Delay();
     public static Delay outtakeGripperDelay = new Delay();
-    private static int outtakeFlipPos = 0;
+    private static double outtakeFlipPos = 0;
     @Override
     public void runOpMode() {
         roboController = new RoboController(this);
@@ -29,16 +29,21 @@ public class EvanTwoPersonDrive extends LinearOpMode {
         waitForStart();
 
         // run until the end of the match (driver presses STOP)
+
+        roboController.outtakeFlipR.setPosition(0);
+        roboController.outtakeFlipL.setPosition(0);
+        outtakeFlipPos = 0;
         while (opModeIsActive()) {
             // while opMode is running, allow the methods for manipulating the wheels and arms
             // to be used and print data values
             moveWheels(gamepad1);
             moveArm(gamepad2);
-            moveOuttake(gamepad1);
+            test(gamepad1);
             telemetry.addData("Status", "Running");
             telemetry.addData("RIP", roboController.rightIntakePusher.getPosition());
             telemetry.addData("LIP", roboController.leftIntakePusher.getPosition());
             telemetry.addData("IFS", roboController.intakeFlip.getPosition());
+            telemetry.addData("Outtake Pos:", outtakeFlipPos);
 
             telemetry.update();
         }
@@ -78,7 +83,6 @@ public class EvanTwoPersonDrive extends LinearOpMode {
         telemetry.addData("Drive Power", drivePower);
         telemetry.addData("Strafe Power", strafePower);
         telemetry.addData("Turn Power", turnPower);
-        telemetry.addData("Outtake Pos:", outtakeFlipPos);
     }
 
     public void moveArm(Gamepad armpad){
@@ -190,5 +194,22 @@ public class EvanTwoPersonDrive extends LinearOpMode {
 
             outtakeGripperDelay.open = !outtakeGripperDelay.open;
         }*/
+    }
+
+    public void test(Gamepad outtakePad) {
+        roboController.outtakeFlipL.setDirection(REVERSE);
+
+        if (outtakePad.a && outtakeFlipDelay.delay()) {
+            // outtake flip: flips the thing on top of the linear slide
+            roboController.outtakeFlipR.setPosition(outtakeFlipPos);
+            roboController.outtakeFlipL.setPosition(outtakeFlipPos);
+            outtakeFlipPos += .05;
+        } else if (outtakePad.b && outtakeFlipDelay.delay()) {
+            // outtake flip: flips the thing on top of the linear slide
+            roboController.outtakeFlipR.setPosition(outtakeFlipPos);
+            roboController.outtakeFlipL.setPosition(outtakeFlipPos);
+            outtakeFlipPos -= .05;
+        }
+
     }
 }
