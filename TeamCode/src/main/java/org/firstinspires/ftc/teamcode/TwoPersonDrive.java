@@ -161,7 +161,7 @@ public class TwoPersonDrive extends LinearOpMode {
         // x/a controls opening and closing intake claw
         if((armpad.a && !buttonPressedA)){
             // initially closed
-            if (roboController.intakeGripper.getPosition() <= 0.5) {
+            if (roboController.intakeGripper.getPosition() <= 0.4) {
                 // closed
                 roboController.intakeGripper.setPosition(0.75);
             } else {
@@ -219,13 +219,13 @@ public class TwoPersonDrive extends LinearOpMode {
             roboController.outtakeRotate.setPosition(0.9);
 
             // open outtake claw
-            roboController.outtakeGripper.setPosition(0.25);
+            roboController.outtakeGripper.setPosition(0);
 
             sleep(500);
 
             // outtake arm forward
-            roboController.rightOuttakeFlip.setPosition(.37);
-            roboController.leftOuttakeFlip.setPosition(.37);
+            roboController.rightOuttakeFlip.setPosition(.15);
+            roboController.leftOuttakeFlip.setPosition(.15);
 
             // outtake claw forward
             roboController.outtakeRotate.setPosition(0.7);
@@ -238,7 +238,7 @@ public class TwoPersonDrive extends LinearOpMode {
             sleep(1000);
 
             // close outtake claw
-            roboController.outtakeGripper.setPosition(0.75);
+            roboController.outtakeGripper.setPosition(0.53);
 
             sleep(250);
 
@@ -339,12 +339,12 @@ public class TwoPersonDrive extends LinearOpMode {
         // dpad up toggles outtake claw
         if(armpad.dpad_up && !buttonPressedDpadUp){
             // initially closed
-            if (roboController.outtakeGripper.getPosition() <= 0.5) {
+            if (roboController.outtakeGripper.getPosition() <= 0.4) {
                 // closed
-                roboController.outtakeGripper.setPosition(0.75);
+                roboController.outtakeGripper.setPosition(0.53);
             } else {
                 // opened
-                roboController.outtakeGripper.setPosition(0.25);
+                roboController.outtakeGripper.setPosition(0.3);
             }
         }
 
