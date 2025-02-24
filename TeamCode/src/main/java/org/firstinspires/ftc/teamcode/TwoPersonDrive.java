@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -11,7 +12,7 @@ public class TwoPersonDrive extends LinearOpMode {
     public static double servoPos = 0.5;
 
     private boolean buttonPressedDpadDown = false;
-    //private boolean buttonPressedDpadUp = false;
+    private boolean buttonPressedDpadUp = false;
     private boolean buttonPressedCircle = false;
     private boolean buttonPressedSquare = false;
     private boolean buttonPressedA = false;
@@ -71,7 +72,7 @@ public class TwoPersonDrive extends LinearOpMode {
         // moves the robot's (wheel) motors left and right using the game pad 1 left joystick
         // strafePower = movepad.left_stick_x;
 
-        // new strafing method that uses the backn triggers instead
+        // new strafing method that uses the back triggers instead
         if(movepad.left_trigger > 0){
             strafePower = -movepad.left_trigger;
         } else if(movepad.right_trigger > 0){
@@ -158,7 +159,7 @@ public class TwoPersonDrive extends LinearOpMode {
 
 
         // x/a controls opening and closing intake claw
-        if((armpad.a && !buttonPressedA) && pickupPos){
+        if((armpad.a && !buttonPressedA)){
             // initially closed
             if (roboController.intakeGripper.getPosition() <= 0.5) {
                 // closed
@@ -201,7 +202,52 @@ public class TwoPersonDrive extends LinearOpMode {
 
         // macro position for transfer between intake and outtake
         if (armpad.triangle && !buttonPressedTriangle) {
+            // higher
+            roboController.intakeFlip.setPosition(0.15);
 
+            // higher
+            roboController.intakeRotate.setPosition(0);
+
+            // straighten claw
+            roboController.intakeTwist.setPosition(0);
+
+
+            // slightly opened
+            roboController.intakeGripper.setPosition(0.39);
+
+            // outtake claw up so it doesn't hit
+            roboController.outtakeRotate.setPosition(1);
+
+            // open outtake claw
+            roboController.outtakeGripper.setPosition(0);
+
+            sleep(500);
+
+            // outtake arm forward
+            roboController.rightOuttakeFlip.setPosition(.37);
+            roboController.leftOuttakeFlip.setPosition(.37);
+
+            // outtake claw forward
+            roboController.outtakeRotate.setPosition(0.7);
+
+            // retract intake slide
+            roboController.rightIntakePusher.setPosition(1);
+            roboController.leftIntakePusher.setPosition(0);
+
+            // wait until the arm is at the back position first before loosening claw
+            sleep(1000);
+
+            // close outtake claw
+            roboController.outtakeGripper.setPosition(0.75);
+
+            sleep(250);
+
+            // open intake claw
+            roboController.intakeGripper.setPosition(0);
+
+            // extend intake slide slightly
+            roboController.rightIntakePusher.setPosition(0.8);
+            roboController.leftIntakePusher.setPosition(0.2);
         }
 
         buttonPressedTriangle = armpad.triangle;
@@ -253,7 +299,7 @@ public class TwoPersonDrive extends LinearOpMode {
         if (armpad.dpad_left && outtakeFlipDelay.delay()) {
 
             // outtake flip: flips the thing on top of the linear slide
-            //roboController.leftOuttakeFlip.setDirection(REVERSE);
+            roboController.leftOuttakeFlip.setDirection(Servo.Direction.REVERSE);
             if (outtakeFlipPos == 2) {
                 outtakeFlipPos = 0;
             } else {
@@ -279,14 +325,30 @@ public class TwoPersonDrive extends LinearOpMode {
             // not to be confused with outtake flip
 
             if (outtakeRotateDelay.open) {
+                // back
                 roboController.outtakeRotate.setPosition(0);
             } else {
+                // forward
                 roboController.outtakeRotate.setPosition(1);
             }
             outtakeRotateDelay.open = !outtakeRotateDelay.open;
 
 
         }
+
+        // dpad up toggles outtake claw
+        if(armpad.dpad_up && !buttonPressedDpadUp){
+            // initially closed
+            if (roboController.outtakeGripper.getPosition() <= 0.5) {
+                // closed
+                roboController.outtakeGripper.setPosition(0.75);
+            } else {
+                // opened
+                roboController.outtakeGripper.setPosition(0);
+            }
+        }
+
+        buttonPressedDpadUp = armpad.dpad_up;
 
         /*else if (armpad.a && outtakeTwistDelay.delay()) {
 
