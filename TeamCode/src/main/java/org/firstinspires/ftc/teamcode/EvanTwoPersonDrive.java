@@ -1,13 +1,8 @@
 package org.firstinspires.ftc.teamcode;
-
 import static com.qualcomm.robotcore.hardware.Servo.Direction.REVERSE;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.Servo;
-
-import java.util.Scanner;
 
 @TeleOp
 public class EvanTwoPersonDrive extends LinearOpMode {
