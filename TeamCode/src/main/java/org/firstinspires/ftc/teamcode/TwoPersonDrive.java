@@ -216,7 +216,7 @@ public class TwoPersonDrive extends LinearOpMode {
             roboController.intakeGripper.setPosition(0.39);
 
             // outtake claw up so it doesn't hit
-            roboController.outtakeRotate.setPosition(1);
+            roboController.outtakeRotate.setPosition(0.9);
 
             // open outtake claw
             roboController.outtakeGripper.setPosition(0);
@@ -329,7 +329,7 @@ public class TwoPersonDrive extends LinearOpMode {
                 roboController.outtakeRotate.setPosition(0);
             } else {
                 // forward
-                roboController.outtakeRotate.setPosition(1);
+                roboController.outtakeRotate.setPosition(0.9);
             }
             outtakeRotateDelay.open = !outtakeRotateDelay.open;
 
