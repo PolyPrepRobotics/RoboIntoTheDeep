@@ -78,6 +78,7 @@ public class EvanTwoPersonDrive extends LinearOpMode {
         telemetry.addData("Drive Power", drivePower);
         telemetry.addData("Strafe Power", strafePower);
         telemetry.addData("Turn Power", turnPower);
+        telemetry.addData("Outtake Pos:", outtakeFlipPos);
     }
 
     public void moveArm(Gamepad armpad){
