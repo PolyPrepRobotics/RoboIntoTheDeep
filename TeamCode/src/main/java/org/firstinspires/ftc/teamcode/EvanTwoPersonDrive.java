@@ -1,14 +1,23 @@
 package org.firstinspires.ftc.teamcode;
 
+import static com.qualcomm.robotcore.hardware.Servo.Direction.REVERSE;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.Servo;
+
+import java.util.Scanner;
 
 @TeleOp
 public class EvanTwoPersonDrive extends LinearOpMode {
     private RoboController roboController;
     public static double servoPos = 0.5;
-
+    public static Delay outtakeFlipDelay = new Delay();
+    public static Delay outtakeRotateDelay = new Delay();
+    public static Delay outtakeTwistDelay = new Delay();
+    public static Delay outtakeGripperDelay = new Delay();
+    private static double outtakeFlipPos = 0;
     @Override
     public void runOpMode() {
         roboController = new RoboController(this);
@@ -20,16 +29,21 @@ public class EvanTwoPersonDrive extends LinearOpMode {
         waitForStart();
 
         // run until the end of the match (driver presses STOP)
+
+        roboController.rightOuttakeFlip.setPosition(0);
+        roboController.leftOuttakeFlip.setPosition(0);
+        outtakeFlipPos = 0;
         while (opModeIsActive()) {
             // while opMode is running, allow the methods for manipulating the wheels and arms
             // to be used and print data values
             moveWheels(gamepad1);
             moveArm(gamepad2);
-
+            test(gamepad1);
             telemetry.addData("Status", "Running");
             telemetry.addData("RIP", roboController.rightIntakePusher.getPosition());
             telemetry.addData("LIP", roboController.leftIntakePusher.getPosition());
             telemetry.addData("IFS", roboController.intakeFlip.getPosition());
+            telemetry.addData("Outtake Pos:", outtakeFlipPos);
 
             telemetry.update();
         }
@@ -108,5 +122,94 @@ public class EvanTwoPersonDrive extends LinearOpMode {
                 roboController.intakeFlip.setPosition(0);
             }
         }
+    }
+
+
+    public void moveOuttake(Gamepad outtakePad) {
+            /*
+            TODO: PLEASE CHANGE THE GAMEPAD BUTTON CONTROLS! HAS NOT BEEN FINISHED YET!!!
+            TODO: ALSO CHANGE VALUES! THESE ARE SUBSITUTE VALUES
+            */
+
+        if (outtakePad.a && outtakeFlipDelay.delay()) {
+
+            // outtake flip: flips the thing on top of the linear slide
+            roboController.leftOuttakeFlip.setDirection(REVERSE);
+            if (outtakeFlipPos == 2) {
+                outtakeFlipPos = 0;
+            } else {
+                outtakeFlipPos++;
+            }
+
+            if (outtakeFlipPos == 0) {
+                roboController.rightOuttakeFlip.setPosition(0);
+                roboController.leftOuttakeFlip.setPosition(0);
+            } else if (outtakeFlipPos == 1) {
+                roboController.rightOuttakeFlip.setPosition(.35);
+                roboController.leftOuttakeFlip.setPosition(.35);
+            } else if (outtakeFlipPos == 2) {
+                roboController.rightOuttakeFlip.setPosition(1);
+                roboController.leftOuttakeFlip.setPosition(1);
+            }
+        }
+
+        else if (outtakePad.b && outtakeRotateDelay.delay()) {
+
+
+            // outtake rotate: flips the claw itself on the thing on top of the linear slide
+            // not to be confused with outtake flip
+
+            if (outtakeRotateDelay.open) {
+                roboController.outtakeRotate.setPosition(0);
+            } else {
+                roboController.outtakeRotate.setPosition(1);
+            }
+            outtakeRotateDelay.open = !outtakeRotateDelay.open;
+
+
+        }
+
+        /*else if (outtakePad.a && outtakeTwistDelay.delay()) {
+
+
+            // outtake twist: rotates the little platform on the claw
+            if (outtakeTwistDelay.open) {
+                roboController.outtakeTwist.setPosition(0);
+            } else {
+                roboController.outtakeTwist.setPosition(1);
+            }
+            outtakeTwistDelay.open = !outtakeTwistDelay.open;
+
+
+        } else if (outtakePad.a && outtakeGripperDelay.delay()) {
+
+
+            // outtake gripper: the gripping things on the claw
+            if (outtakeGripperDelay.open) {
+                roboController.outtakeGripper.setPosition(0);
+            } else {
+                roboController.outtakeGripper.setPosition(1);
+            }
+
+
+            outtakeGripperDelay.open = !outtakeGripperDelay.open;
+        }*/
+    }
+
+    public void test(Gamepad outtakePad) {
+        roboController.leftOuttakeFlip.setDirection(REVERSE);
+
+        if (outtakePad.a && outtakeFlipDelay.delay()) {
+            // outtake flip: flips the thing on top of the linear slide
+            roboController.rightOuttakeFlip.setPosition(outtakeFlipPos);
+            roboController.leftOuttakeFlip.setPosition(outtakeFlipPos);
+            outtakeFlipPos += .05;
+        } else if (outtakePad.b && outtakeFlipDelay.delay()) {
+            // outtake flip: flips the thing on top of the linear slide
+            roboController.rightOuttakeFlip.setPosition(outtakeFlipPos);
+            roboController.leftOuttakeFlip.setPosition(outtakeFlipPos);
+            outtakeFlipPos -= .05;
+        }
+
     }
 }
