@@ -31,8 +31,8 @@ public class EvanTwoPersonDrive extends LinearOpMode {
         while (opModeIsActive()) {
             // while opMode is running, allow the methods for manipulating the wheels and arms
             // to be used and print data values
-            moveWheels(gamepad1);
-            moveArm(gamepad2);
+            //moveWheels(gamepad1);
+            // moveArm(gamepad2);
             test(gamepad1);
             telemetry.addData("Status", "Running");
             telemetry.addData("RIP", roboController.rightIntakePusher.getPosition());
@@ -206,5 +206,32 @@ public class EvanTwoPersonDrive extends LinearOpMode {
             outtakeFlipPos -= .05;
         }
 
+    }
+
+    public void scoringMacro(Gamepad outtakePad) throws InterruptedException {
+        roboController.outtakeFlipL.setDirection(REVERSE);
+
+        //TODO: Change placeholder values
+
+        final double flipRaisePos = Math.abs(24); //placeholder value
+        final double flipSetPos = Math.sqrt(Math.pow(21,2)); //placeholder value
+        final double rotatePos = Math.PI; //placeholder value
+        final double rotateSetPos = Math.E; //placeholder value
+
+        roboController.outtakeFlipR.setPosition(flipRaisePos);
+        roboController.outtakeFlipL.setPosition(flipRaisePos);
+
+        wait(200);
+
+        roboController.outtakeRotate.setPosition(rotatePos);
+
+        wait(2000);
+
+        roboController.outtakeFlipR.setPosition(flipSetPos);
+        roboController.outtakeFlipL.setPosition(flipSetPos);
+
+        wait(200);
+
+        roboController.outtakeRotate.setPosition(rotateSetPos);
     }
 }
