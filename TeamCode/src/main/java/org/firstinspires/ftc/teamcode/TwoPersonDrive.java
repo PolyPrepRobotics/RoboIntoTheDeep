@@ -23,7 +23,7 @@ public class TwoPersonDrive extends LinearOpMode {
     public static Delay outtakeRotateDelay = new Delay();
     public static Delay outtakeTwistDelay = new Delay();
     public static Delay outtakeGripperDelay = new Delay();
-    private static int outtakeFlipPos = 0;
+    private static int outtakeFlipPos = -1;
 
     @Override
     public void runOpMode() {
@@ -114,7 +114,7 @@ public class TwoPersonDrive extends LinearOpMode {
         }
 
 
-        // circle toggles intake arm positions
+        // circle/b toggles intake arm positions
         if(armpad.circle && !buttonPressedCircle){
             if(roboController.intakeFlip.getPosition() < 0.5){
                 // macro position is correct
@@ -189,7 +189,7 @@ public class TwoPersonDrive extends LinearOpMode {
             }
         }
 
-        // square controls adjustment of wrist position
+        // square/x controls adjustment of wrist position
         if (armpad.square && !buttonPressedSquare) {
             if (roboController.intakeTwist.getPosition() < 0.25) {
                 roboController.intakeTwist.setPosition(0.52);
