@@ -65,7 +65,7 @@ public class EvanTwoPersonDrive extends LinearOpMode {
         // moves the robot's (wheel) motors left and right using the game pad 1 left joystick
         // strafePower = movepad.left_stick_x;
 
-        // new strafing method that uses the backn triggers instead
+        // new strafing method that uses the back triggers instead
         if(movepad.left_trigger > 0){
             strafePower = -movepad.left_trigger;
         } else if(movepad.right_trigger > 0){
@@ -132,7 +132,7 @@ public class EvanTwoPersonDrive extends LinearOpMode {
     public void moveOuttake(Gamepad outtakePad) {
             /*
             TODO: PLEASE CHANGE THE GAMEPAD BUTTON CONTROLS! HAS NOT BEEN FINISHED YET!!!
-            TODO: ALSO CHANGE VALUES! THESE ARE SUBSITUTE VALUES
+            TODO: ALSO CHANGE VALUES! THESE ARE SUBSTITUTE VALUES
             */
 
         if (outtakePad.a && outtakeFlipDelay.delay()) {
