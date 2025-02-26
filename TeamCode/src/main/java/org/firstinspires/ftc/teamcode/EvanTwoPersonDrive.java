@@ -12,7 +12,11 @@ public class EvanTwoPersonDrive extends LinearOpMode {
     public static Delay outtakeRotateDelay = new Delay();
     public static Delay outtakeTwistDelay = new Delay();
     public static Delay outtakeGripperDelay = new Delay();
+
+    // tests
     private static double outtakeFlipPos = 0;
+    private static double outtakeRotatePos = 0;
+
     @Override
     public void runOpMode() {
         roboController = new RoboController(this);
@@ -28,18 +32,23 @@ public class EvanTwoPersonDrive extends LinearOpMode {
         roboController.outtakeFlipR.setPosition(0);
         roboController.outtakeFlipL.setPosition(0);
         outtakeFlipPos = 0;
+
+        roboController.outtakeRotate.setPosition(0);
+        outtakeRotatePos = 0;
+
         while (opModeIsActive()) {
             // while opMode is running, allow the methods for manipulating the wheels and arms
             // to be used and print data values
             //moveWheels(gamepad1);
             // moveArm(gamepad2);
             test(gamepad1);
+
             telemetry.addData("Status", "Running");
             telemetry.addData("RIP", roboController.rightIntakePusher.getPosition());
             telemetry.addData("LIP", roboController.leftIntakePusher.getPosition());
             telemetry.addData("IFS", roboController.intakeFlip.getPosition());
-            telemetry.addData("Outtake Pos:", outtakeFlipPos);
-
+            telemetry.addData("Flip Outtake Pos:", outtakeFlipPos);
+            telemetry.addData("Rotate Outtake Pos:", outtakeRotatePos);
             telemetry.update();
         }
     }
@@ -193,7 +202,6 @@ public class EvanTwoPersonDrive extends LinearOpMode {
 
     public void test(Gamepad outtakePad) {
         roboController.outtakeFlipL.setDirection(REVERSE);
-
         if (outtakePad.a && outtakeFlipDelay.delay()) {
             // outtake flip: flips the thing on top of the linear slide
             roboController.outtakeFlipR.setPosition(outtakeFlipPos);
@@ -204,9 +212,15 @@ public class EvanTwoPersonDrive extends LinearOpMode {
             roboController.outtakeFlipR.setPosition(outtakeFlipPos);
             roboController.outtakeFlipL.setPosition(outtakeFlipPos);
             outtakeFlipPos -= .05;
+        } else if (outtakePad.x && outtakeRotateDelay.delay()) {
+            roboController.outtakeRotate.setPosition(outtakeRotatePos);
+            outtakeRotatePos += .05;
+        } else if (outtakePad.y && outtakeRotateDelay.delay()) {
+            roboController.outtakeRotate.setPosition(outtakeRotatePos);
+            outtakeRotatePos -= .05;
         }
-
     }
+
 
     public void scoringMacro(Gamepad outtakePad) throws InterruptedException {
         roboController.outtakeFlipL.setDirection(REVERSE);
