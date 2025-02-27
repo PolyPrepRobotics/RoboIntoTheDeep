@@ -73,8 +73,11 @@ public class RoboController {
         outtakeGripper = hardwareMap.get(Servo.class, "OGS");
 
         // presetting
-        FRW.setDirection(DcMotorSimple.Direction.REVERSE);
-        BRW.setDirection(DcMotorSimple.Direction.REVERSE);
+        FLW.setDirection(DcMotorSimple.Direction.REVERSE);
+        BLW.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        leftOuttakeFlip.setDirection(Servo.Direction.REVERSE);
+        leftIntakePusher.setDirection(Servo.Direction.REVERSE);
 
         FLW.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         FRW.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
