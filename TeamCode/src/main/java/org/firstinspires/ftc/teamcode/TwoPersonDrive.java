@@ -185,10 +185,13 @@ public class TwoPersonDrive extends LinearOpMode {
                 roboController.outtakeRotate.setPosition(0);
             }
 
+            /*
             sleep(500);
 
             // claw back
             roboController.outtakeRotate.setPosition(0.12);
+
+             */
         }
 
         buttonPressedTriangle1 = movepad.triangle;
@@ -197,24 +200,30 @@ public class TwoPersonDrive extends LinearOpMode {
         if(movepad.left_bumper){
             if(scorePos == 0){
                 // outtake arm forward
-                roboController.rightOuttakeFlip.setPosition(0.9);
-                roboController.leftOuttakeFlip.setPosition(0.9);
+                roboController.rightOuttakeFlip.setPosition(0.95);
+                roboController.leftOuttakeFlip.setPosition(0.95);
 
                 sleep(500);
 
-                // outtake claw straightened
-                roboController.outtakeRotate.setPosition(0.5);
+                // rotate wrist 180 degrees
+                roboController.outtakeTwist.setPosition(0.83);
+
+                // outtake claw up
+                roboController.outtakeRotate.setPosition(outtakeDontHit);
 
                 // straighten claw
                 //roboController.outtakeTwist.setPosition(0.83);
             } else if(scorePos == 1){
-                // outtake claw up and aim to score
-                roboController.outtakeRotate.setPosition(outtakeDontHit);
+                // outtake claw down to score
+                roboController.outtakeRotate.setPosition(0.4);
 
                 sleep(250);
 
                 // open outtake claw
                 roboController.outtakeGripper.setPosition(outtakeOpen);
+
+                // straighten outtake claw twist
+                roboController.outtakeTwist.setPosition(0.17);
 
                 // fix twist claw back
                 //roboController.outtakeTwist.setPosition(0.17);
@@ -352,11 +361,21 @@ public class TwoPersonDrive extends LinearOpMode {
         // hold dpad down to lower claw and pick up sample
         if(pickupPos){
             if(armpad.dpad_down && !buttonPressedDpadDown){
+                // open intake claw
+                roboController.intakeGripper.setPosition(intakeOpen);
+
+                sleep(200);
+
                 // lower to floor
                 roboController.intakeFlip.setPosition(0.8);
 
                 // slightly higher claw
                 roboController.intakeRotate.setPosition(0.92);
+
+                sleep(200);
+
+                // close intake claw
+                roboController.intakeGripper.setPosition(intakeClose);
             } else {
                 // semi-parallel to floor
                 roboController.intakeFlip.setPosition(0.72);
@@ -385,6 +404,9 @@ public class TwoPersonDrive extends LinearOpMode {
                 roboController.rightOuttakeFlip.setPosition(0);
                 roboController.leftOuttakeFlip.setPosition(0);
             }
+
+            // straighten outtake claw twist
+            roboController.outtakeTwist.setPosition(0.17);
 
             // outtake claw up so it doesn't hit
             roboController.outtakeRotate.setPosition(outtakeClawFoward);
@@ -484,6 +506,7 @@ public class TwoPersonDrive extends LinearOpMode {
             TODO: ALSO CHANGE VALUES! THESE ARE SUBSITUTE VALUES
             */
 
+        // *** ONLY FOR TESTING
         // triggers control extension of outtake arm
         if (armpad.right_trigger > 0.25) {
             // extend even tho it's negative
@@ -540,6 +563,7 @@ public class TwoPersonDrive extends LinearOpMode {
         }
 
         buttonPressedDpadRight = armpad.dpad_right;
+
 
         // dpad up toggles outtake claw
         if(armpad.dpad_up && !buttonPressedDpadUp2){
