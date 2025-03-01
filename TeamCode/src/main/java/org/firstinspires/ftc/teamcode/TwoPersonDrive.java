@@ -715,4 +715,24 @@ public class TwoPersonDrive extends LinearOpMode {
         // open outtake claw
         roboController.outtakeGripper.setPosition(outtakeOpen);
     }
+
+    // TODO: MUST TEST BEFORE USING!! NOT SURE IF IT WORKS...
+    public void grabSpecimenFromWall() throws InterruptedException {
+        // sends outtake flip all the way back
+        roboController.rightOuttakeFlip.setPosition(0);
+        roboController.leftOuttakeFlip.setPosition(0);
+        wait(100);
+
+        // opens outtake claw
+        roboController.outtakeGripper.setPosition(outtakeOpen);
+        wait(100);
+
+        // sends outtake rotate claw all the way back
+        roboController.outtakeRotate.setPosition(outtakeClawBack);
+        wait(100);
+
+        // opens outtake claw
+        roboController.outtakeGripper.setPosition(outtakeClose);
+        wait(100);
+    }
 }
