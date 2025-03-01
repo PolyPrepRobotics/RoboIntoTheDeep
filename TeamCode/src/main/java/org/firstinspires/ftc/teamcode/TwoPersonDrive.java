@@ -237,7 +237,7 @@ public class TwoPersonDrive extends LinearOpMode {
     public void moveArm(Gamepad armpad){
         // ** arm movement **
 
-        // right = extend
+        // right = exten
         // left = retract
 
 
