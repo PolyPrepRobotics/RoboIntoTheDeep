@@ -85,7 +85,7 @@ public class PedroAuto extends OpMode {
     public void buildPaths() {
         // Path for scoring preload
         scorePreload = new Path(new BezierLine(new Point(startPose), new Point(score0Pose)));
-        scorePreload.setConstantHeadingInterpolation(startPose.getHeading());
+        scorePreload.setLinearHeadingInterpolation(0,0);
 
         // Path chains for picking up and scoring samples
         pickDrop1 = follower.pathBuilder()
@@ -147,8 +147,6 @@ public class PedroAuto extends OpMode {
                 setSpecimen();
                 follower.followPath(scorePreload);
 
-                //pause(100);
-
                 setPathState(1);
                 break;
 
@@ -175,10 +173,6 @@ public class PedroAuto extends OpMode {
             case 2: //move to between the second block and obs. zone, pick and drop the block into obs. zone
                 if (!follower.isBusy()) {
                     pickDrop();
-                    //wait(500);
-
-                    //pause(500);
-
                     follower.followPath(pickDrop2, true);
 //                    pickDrop();
 //
@@ -286,7 +280,7 @@ public class PedroAuto extends OpMode {
         intakeGripper.setPosition(intakeClose);
         //wait(100);
 
-        pause(100);
+        //pause(100);
 
         // semi-parallel to floor
         //intakeFlip.setPosition(intakeFlipDown);
@@ -448,7 +442,7 @@ public class PedroAuto extends OpMode {
         rightOuttakeFlip.setPosition(1);
         leftOuttakeFlip.setPosition(1);
 
-        pause(400);
+        pause(300);
 
         // higher
         //intakeFlip.setPosition(intakeFlipUp);
