@@ -155,7 +155,7 @@ public class EvanTwoPersonDrive extends LinearOpMode {
         if (outtakePad.a && outtakeFlipDelay.delay()) {
 
             // outtake flip: flips the thing on top of the linear slide
-            roboController.leftOuttakeFlip.setDirection(REVERSE);
+            // roboController.leftOuttakeFlip.setDirection(REVERSE);
             if (outtakeFlipPos == 2) {
                 outtakeFlipPos = 0;
             } else {

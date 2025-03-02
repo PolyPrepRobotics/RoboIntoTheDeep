@@ -14,9 +14,10 @@ public class TwoPersonDrive extends LinearOpMode {
     private double intakeClose = 0.75;
     private double intakeGripperMid = 0.4;
     private double outtakeOpen = 0.4;
-    private double outtakeClose = 0.625;
+    private double outtakeClose = 0.62;
     private double outtakeGripperMid = 0.5;
     private double outtakeClawFoward = 0.87;
+    //private double outtakeClawFoward = 0.87;
     private double outtakeClawBack = 0;
     private double outtakeClawMiddle = 0.44;
     private double outtakeRotateMid = 0.5;
@@ -237,7 +238,7 @@ public class TwoPersonDrive extends LinearOpMode {
     public void moveArm(Gamepad armpad){
         // ** arm movement **
 
-        // right = extend
+        // right = exten
         // left = retract
 
 
@@ -682,12 +683,6 @@ public class TwoPersonDrive extends LinearOpMode {
         roboController.intakeRotate.setPosition(intakeRotateDown);
 
         pickupPos = true;
-
-        // semi-parallel to floor
-        roboController.intakeFlip.setPosition(0.72);
-
-        // lower claw
-        roboController.intakeRotate.setPosition(1);
 
         // outtake arm forward
         roboController.rightOuttakeFlip.setPosition(1);
