@@ -73,6 +73,11 @@ public class RoboController {
         outtakeGripper = hardwareMap.get(Servo.class, "OGS");
 
         // presetting
+        FLW.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        BLW.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        BRW.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        FRW.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         FLW.setDirection(DcMotorSimple.Direction.REVERSE);
         BLW.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -97,9 +102,9 @@ public class RoboController {
 
     // wheel/distance conversions
     public static int inchesToCounts(double inchesToDrive) {
-        double circumference = Constants.WHEEL_DIAMETER_IN_INCHES * Math.PI;
+        double circumference = CustomConstants.WHEEL_DIAMETER_IN_INCHES * Math.PI;
         double rotations = inchesToDrive / circumference;
-        double countsToDrive = rotations * Constants.WHEEL_MOTOR_COUNTS_PER_ROTATION;
+        double countsToDrive = rotations * CustomConstants.WHEEL_MOTOR_COUNTS_PER_ROTATION;
         return (int) countsToDrive;
     }
 
