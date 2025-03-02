@@ -16,8 +16,8 @@ public class TwoPersonDrive extends LinearOpMode {
     private double outtakeOpen = 0.4;
     private double outtakeClose = 0.62;
     private double outtakeGripperMid = 0.5;
-    private double outtakeClawFoward = 0.87;
-    //private double outtakeClawFoward = 0.87;
+    private double outtakeClawForward = 0.87;
+    //private double outtakeClawForward = 0.87;
     private double outtakeClawBack = 0;
     private double outtakeClawMiddle = 0.44;
     private double outtakeRotateMid = 0.5;
@@ -62,6 +62,13 @@ public class TwoPersonDrive extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
+        // straightened arm
+        // **
+        //roboController.intakeFlip.setPosition(0.3);
+
+        // higher
+        //roboController.intakeRotate.setPosition(intakeRotateUp);
+
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
@@ -74,6 +81,14 @@ public class TwoPersonDrive extends LinearOpMode {
 
         pickupPos = true;
 
+        // straightened arm
+        // **
+//        roboController.intakeFlip.setPosition(0.3);
+//
+//        // higher
+//        roboController.intakeRotate.setPosition(intakeRotateUp);
+
+        //sleep(100);
 
         // retract arm
         roboController.rightIntakePusher.setPosition(1);
@@ -85,10 +100,10 @@ public class TwoPersonDrive extends LinearOpMode {
         scorePos = 0;
 
         // outtake claw up so it doesn't hit
-        roboController.outtakeRotate.setPosition(outtakeClawFoward);
+        roboController.outtakeRotate.setPosition(outtakeClawForward);
 
         // straighten outtake claw twist
-        roboController.outtakeTwist.setPosition(outtakeTwistStraight1);
+        roboController.outtakeTwist.setPosition(outtakeTwistStraight2);
 
         sleep(100);
 
@@ -456,7 +471,7 @@ public class TwoPersonDrive extends LinearOpMode {
                 roboController.outtakeRotate.setPosition(outtakeClawMiddle);
             } else if(toggleOuttakeWrist == 2){
                 // forward
-                roboController.outtakeRotate.setPosition(outtakeClawFoward);
+                roboController.outtakeRotate.setPosition(outtakeClawForward);
             }
 
             toggleOuttakeWrist++;
@@ -471,7 +486,7 @@ public class TwoPersonDrive extends LinearOpMode {
                 roboController.outtakeRotate.setPosition(outtakeClawBack);
             } else {
                 // forward
-                roboController.outtakeRotate.setPosition(outtakeClawFoward);
+                roboController.outtakeRotate.setPosition(outtakeClawForward);
             }
 
              */
@@ -576,10 +591,10 @@ public class TwoPersonDrive extends LinearOpMode {
         }
 
         // straighten outtake claw twist
-        roboController.outtakeTwist.setPosition(outtakeTwistStraight1);
+        roboController.outtakeTwist.setPosition(outtakeTwistStraight2);
 
         // outtake claw up so it doesn't hit
-        roboController.outtakeRotate.setPosition(outtakeClawFoward);
+        roboController.outtakeRotate.setPosition(outtakeClawForward);
 
         // open outtake claw
         roboController.outtakeGripper.setPosition(outtakeOpen);
@@ -653,7 +668,7 @@ public class TwoPersonDrive extends LinearOpMode {
         scorePos = 0;
 
         // outtake claw up so it doesn't hit
-        roboController.outtakeRotate.setPosition(outtakeClawFoward);
+        roboController.outtakeRotate.setPosition(outtakeClawForward);
 
         // straighten outtake claw twist
         roboController.outtakeTwist.setPosition(outtakeTwistStraight1);
