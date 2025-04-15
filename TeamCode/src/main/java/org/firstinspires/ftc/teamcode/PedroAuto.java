@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.pedropathing.follower.Follower;
-import com.pedropathing.localization.Localizers;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.BezierLine;
 import com.pedropathing.pathgen.Path;
@@ -36,8 +35,8 @@ public class PedroAuto extends OpMode {
     private double outtakeOpen = 0.4;
     private double outtakeClose = 0.62;
     private double outtakeGripperMid = 0.5;
-    private double outtakeClawForward = 0.87;
-    //private double outtakeClawForward = 0.87;
+    private double outtakeClawFoward = 0.87;
+    //private double outtakeClawFoward = 0.87;
     private double outtakeClawBack = 0;
     private double outtakeClawMiddle = 0.44;
     private double outtakeTwistStraight1 = 0.15;
@@ -50,10 +49,10 @@ public class PedroAuto extends OpMode {
 
     private final Pose startPose = new Pose(9, 60, Math.toRadians(0));  // Starting position
     // Scoring positions
-    private final Pose score0Pose = new Pose(39, 63, Math.toRadians(0));
-    private final Pose score1Pose = new Pose(39, 66, Math.toRadians(0));
+    private final Pose score0Pose = new Pose(39, 65, Math.toRadians(0));
+    private final Pose score1Pose = new Pose(39, 67, Math.toRadians(0));
     private final Pose score2Pose = new Pose(39, 69, Math.toRadians(0));
-    private final Pose score3Pose = new Pose(39, 72, Math.toRadians(0));
+    private final Pose score3Pose = new Pose(39, 71, Math.toRadians(0));
 
     private final Pose pickup1Pose = new Pose(22, 24, Math.toRadians(0));
     private final Pose pickup2Pose = new Pose(22, 14, Math.toRadians(0));
@@ -86,7 +85,7 @@ public class PedroAuto extends OpMode {
     public void buildPaths() {
         // Path for scoring preload
         scorePreload = new Path(new BezierLine(new Point(startPose), new Point(score0Pose)));
-        scorePreload.setConstantHeadingInterpolation(startPose.getHeading());
+        scorePreload.setLinearHeadingInterpolation(0,0);
 
         // Path chains for picking up and scoring samples
         pickDrop1 = follower.pathBuilder()
@@ -145,21 +144,13 @@ public class PedroAuto extends OpMode {
                 rightIntakePusher.setPosition(1);
                 leftIntakePusher.setPosition(1);
 
-
-                //setSpecimen();
-                follower.followPath(scorePreload, true);
-
-                //arm set to lowest possible
-                rightOuttakeFlip.setPosition(0);
-                leftOuttakeFlip.setPosition(0);
-
                 setSpecimen();
+                follower.followPath(scorePreload);
 
                 setPathState(1);
                 break;
 
             case 1: //move to between the first block and obs. zone, pick and drop the block into obs. zone
-
                 if (!follower.isBusy()) {
                     scoreSpecimen();
 
@@ -182,10 +173,6 @@ public class PedroAuto extends OpMode {
             case 2: //move to between the second block and obs. zone, pick and drop the block into obs. zone
                 if (!follower.isBusy()) {
                     pickDrop();
-                    //wait(500);
-
-                    //pause(500);
-
                     follower.followPath(pickDrop2, true);
 //                    pickDrop();
 //
@@ -244,7 +231,6 @@ public class PedroAuto extends OpMode {
                     //pause(1000);
                     scoreSpecimen();
                     follower.followPath(pickUpSpeci3, true);
-                    dropSample();
 //                    grabSpecimen();
                     setPathState(8);
                 }
@@ -294,7 +280,7 @@ public class PedroAuto extends OpMode {
         intakeGripper.setPosition(intakeClose);
         //wait(100);
 
-        pause(100);
+        //pause(100);
 
         // semi-parallel to floor
         //intakeFlip.setPosition(intakeFlipDown);
@@ -326,17 +312,17 @@ public class PedroAuto extends OpMode {
         }
 
         // straighten outtake claw twist
-        outtakeTwist.setPosition(outtakeTwistStraight2);
+        outtakeTwist.setPosition(outtakeTwistStraight1);
 
         // outtake claw up so it doesn't hit
-        outtakeRotate.setPosition(outtakeClawForward);
+        outtakeRotate.setPosition(outtakeClawFoward);
 
         // open outtake claw
         outtakeGripper.setPosition(outtakeOpen);
 
         //wait(200);
 
-        pause(300);
+        pause(100);
 
         // outtake arm forward
         rightOuttakeFlip.setPosition(.32);
@@ -414,7 +400,7 @@ public class PedroAuto extends OpMode {
         //scorePos = 0;
 
         // outtake claw up so it doesn't hit
-        outtakeRotate.setPosition(outtakeClawForward);
+        outtakeRotate.setPosition(outtakeClawFoward);
 
         // straighten outtake claw twist
         outtakeTwist.setPosition(outtakeTwistStraight1);
@@ -456,7 +442,7 @@ public class PedroAuto extends OpMode {
         rightOuttakeFlip.setPosition(1);
         leftOuttakeFlip.setPosition(1);
 
-        pause(400);
+        pause(300);
 
         // higher
         //intakeFlip.setPosition(intakeFlipUp);
@@ -473,12 +459,6 @@ public class PedroAuto extends OpMode {
 
         // outtake claw middle
         outtakeRotate.setPosition(outtakeClawMiddle);
-
-        // higher
-        intakeFlip.setPosition(intakeFlipUp);
-
-        // higher
-        intakeRotate.setPosition(intakeRotateUp);
     }
 
     public void scoreSpecimen() throws InterruptedException {
@@ -497,7 +477,7 @@ public class PedroAuto extends OpMode {
         outtakeGripper.setPosition(outtakeOpen);
 
 //        // outtake claw up so it doesn't hit
-//        outtakeRotate.setPosition(outtakeClawForward);
+//        outtakeRotate.setPosition(outtakeClawFoward);
 //
 //        // open outtake claw
 //        outtakeGripper.setPosition(outtakeOpen);
@@ -560,7 +540,7 @@ public class PedroAuto extends OpMode {
         //scorePos = 0;
 
 //        // outtake claw up so it doesn't hit
-//        outtakeRotate.setPosition(outtakeClawForward);
+//        outtakeRotate.setPosition(outtakeClawFoward);
 //
 //        // open outtake claw
 //        outtakeGripper.setPosition(outtakeOpen);
@@ -654,12 +634,6 @@ public class PedroAuto extends OpMode {
 
         // close outtake claw onto specimen
         outtakeGripper.setPosition(outtakeClose);
-
-        // outtake claw up so it doesn't hit
-        outtakeRotate.setPosition(outtakeClawForward);
-
-        // straighten outtake claw twist
-        outtakeTwist.setPosition(outtakeTwistStraight2);
 
         // reverse half of the needed servos
         leftOuttakeFlip.setDirection(Servo.Direction.REVERSE);
