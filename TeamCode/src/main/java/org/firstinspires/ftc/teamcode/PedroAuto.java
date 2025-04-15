@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.pedropathing.follower.Follower;
+import com.pedropathing.localization.Localizers;
 import com.pedropathing.localization.Pose;
 import com.pedropathing.pathgen.BezierLine;
 import com.pedropathing.pathgen.Path;
@@ -146,19 +147,19 @@ public class PedroAuto extends OpMode {
 
 
                 //setSpecimen();
-                follower.followPath(scorePreload);
+                follower.followPath(scorePreload, true);
 
+                //arm set to lowest possible
                 rightOuttakeFlip.setPosition(0);
                 leftOuttakeFlip.setPosition(0);
 
                 setSpecimen();
 
-                //pause(100);
-
                 setPathState(1);
                 break;
 
             case 1: //move to between the first block and obs. zone, pick and drop the block into obs. zone
+
                 if (!follower.isBusy()) {
                     scoreSpecimen();
 

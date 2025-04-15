@@ -446,14 +446,14 @@ public class TwoPersonDrive extends LinearOpMode {
             }
 
             if (outtakeFlipPos == 0) {
-                roboController.rightOuttakeFlip.setPosition(1);
-                roboController.leftOuttakeFlip.setPosition(1);
+                roboController.rightOuttakeFlip.setPosition(0);
+                roboController.leftOuttakeFlip.setPosition(0);
             } else if (outtakeFlipPos == 1) {
                 roboController.rightOuttakeFlip.setPosition(.65);
                 roboController.leftOuttakeFlip.setPosition(.65);
             } else if (outtakeFlipPos == 2) {
-                roboController.rightOuttakeFlip.setPosition(0);
-                roboController.leftOuttakeFlip.setPosition(0);
+                roboController.rightOuttakeFlip.setPosition(1);
+                roboController.leftOuttakeFlip.setPosition(1);
             }
         }
 
