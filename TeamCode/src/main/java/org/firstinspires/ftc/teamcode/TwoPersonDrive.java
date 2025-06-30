@@ -106,7 +106,6 @@ public class TwoPersonDrive extends LinearOpMode {
         roboController.outtakeTwist.setPosition(outtakeTwistStraight2);
 
         sleep(100);
-        //
 
         // move outtake arm back
         roboController.rightOuttakeFlip.setPosition(0);
@@ -172,8 +171,10 @@ public class TwoPersonDrive extends LinearOpMode {
             strafePower = 0;
         }
 
+        strafePower = movepad.left_stick_x;
+
         // turns the robot's (wheel) motors left and right using the game pad 1 right joystick
-        turnPower = (movepad.right_stick_x) * 0.75;
+        turnPower = movepad.right_stick_x;
 
         // drive, turn, and strafe logic
         // https://youtu.be/jRVUHapKx4o?si=1jVJ-ts7d2rkHCdq
